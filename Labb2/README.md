@@ -24,20 +24,20 @@ Observera att koderna troligen inte går att köra och att du egentligen bara ska 
 Designmönster: Factory Method
 
 **Interface**: IMeal<br>
-    Subklasser:
-	    - Hamburger
-	    - GreenSalad
+Subklasser:<br>
+ - Hamburger
+ - GreenSalad
 
 
 **Abstract Factory Method**<br>
-    abstract class Restaurant
+    abstract class Restaurant<br>
 	    Property abstract IMeal PrepareMainCourse();
 
 **Concrete Factory Methods**<br>
-	- class FastFoodRestaurant : Restaurant
-		- Outputs: Hamburger
-	- class VegetarianRestaurant : Restaurant
-		- Outputs: GreenSalad
+ - class FastFoodRestaurant : Restaurant
+  - Outputs: Hamburger
+ - class VegetarianRestaurant : Restaurant
+  - Outputs: GreenSalad
 
 ## Code B
 
@@ -67,18 +67,21 @@ public static SimpleThreadSafetyGreeter Instance
 ## Code C
 
 Designmönster: Strategy
+
 Alla delar av strategin är fördelade i sina egna klasser.
+
 **Strategy Interface**<br>
     IShippingProvider med decimal CalculateCost(Order order);
+
 **Concrete Strategy**<br>
-    - FedEx med decimal CalculateCost(Order order) => 10;
-    - RoyalMail med decimal CalculateCost(Order order) => 8.5m;
-    - UnitedParcelService med decimal CalculateCost(Order order) => 9;
+ - FedEx med decimal CalculateCost(Order order) => 10;
+ - RoyalMail med decimal CalculateCost(Order order) => 8.5m;
+ - UnitedParcelService med decimal CalculateCost(Order order) => 9;
 
 **Context**<br>
-    ShippingCostCalculationService
-        ShippingCostCalculationService(IShippingProvider shippingCost) => _shippingProvider = shippingCost;
-        decimal Calculate(Order order) => _shippingProvider.CalculateCost(order);
+    ShippingCostCalculationService<br>
+        ShippingCostCalculationService(IShippingProvider shippingCost) => _shippingProvider = shippingCost;<br>
+        decimal Calculate(Order order) => _shippingProvider.CalculateCost(order);<br>
 
 ## Code D
 
@@ -87,15 +90,15 @@ Designmönster: Adapter
 ### BillingSystemExample
 
 **Adapter Interface**<br>
-    ISalaryProcessor
+    ISalaryProcessor<br>
         void ProcessSalaries(string[,] employees);
 
 **Adaptee Class**<br>
-    ThirdPartyBillingSystem
+    ThirdPartyBillingSystem<br>
         void ProcessSalary(List<Employee> employees)
 
 **Adapter Class**<br>
-    HRSystem : ISalaryProcessor
+    HRSystem : ISalaryProcessor<br>
         private readonly ThirdPartyBillingSystem _thirdPartyBillingSystem;
 
 HRSystem agerar som våran Adapter med sin implementation av ISalaryProcessor interface och översätter ProcessSalaries metoden till ProcessSalary metoden av ThirdPartyBillingSystem.
@@ -105,16 +108,16 @@ Adapterns jobb är att konvertera rå employee data från en 2d array av typen stri
 ### MovieBroadcasterExample
 
 **Adapter Interface**<br>
-    IBroadcaster
+    IBroadcaster<br>
         void BroadcastToExternalPartners();
 
 **Adaptee Class**<br>
-    MovieRegistry
+    MovieRegistry<br>
         XDocument GetAll()
 
 **Adapter Class**<br>
-    Broadcast : IBroadcaster
-        private readonly MovieRegistry _movieRegistry;
+    Broadcast : IBroadcaster<br>
+        private readonly MovieRegistry _movieRegistry;<br>
         private readonly ThirdPartyBroadcaster _thirdPartyBroadcaster;
 
 Broadcast agerar som våran Adapter med sin implementation av IBroadcaster interface och översätter BroadcastToExternalPartners metoden till att interagera med MovieRegistry och ThirdPartyBroadcaster.
