@@ -10,7 +10,6 @@
   <ItemGroup>
     <Folder Include="BehavioralPatterns\StrategyPattern\" />
     <Folder Include="BehavioralPatterns\ObserverPattern\" />
-    <Folder Include="StructuralPatterns\AdapterPattern\" />
     <Folder Include="StructuralPatterns\DecoratorPattern\" />
   </ItemGroup>
 

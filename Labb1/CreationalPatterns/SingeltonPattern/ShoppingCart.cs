@@ -44,4 +44,10 @@ public class ShoppingCart
         Console.WriteLine("Shopping cart cleared.");
         Console.ResetColor();
     }
+
+    public decimal GetTotalAmount()
+    {
+        decimal sum = _products.Sum(p => p.Price);
+        return sum;
+    }
 }
