@@ -23,17 +23,17 @@ Observera att koderna troligen inte går att köra och att du egentligen bara ska 
 
 Designmönster: Factory Method
 
-**Interface**: IMeal
+**Interface**: IMeal<br>
     Subklasser:
 	    - Hamburger
 	    - GreenSalad
 
 
-**Abstract Factory Method**
+**Abstract Factory Method**<br>
     abstract class Restaurant
 	    Property abstract IMeal PrepareMainCourse();
 
-**Concrete Factory Methods**
+**Concrete Factory Methods**<br>
 	- class FastFoodRestaurant : Restaurant
 		- Outputs: Hamburger
 	- class VegetarianRestaurant : Restaurant
@@ -68,14 +68,14 @@ public static SimpleThreadSafetyGreeter Instance
 
 Designmönster: Strategy
 Alla delar av strategin är fördelade i sina egna klasser.
-**Strategy Interface**
+**Strategy Interface**<br>
     IShippingProvider med decimal CalculateCost(Order order);
-**Concrete Strategy**
+**Concrete Strategy**<br>
     - FedEx med decimal CalculateCost(Order order) => 10;
     - RoyalMail med decimal CalculateCost(Order order) => 8.5m;
     - UnitedParcelService med decimal CalculateCost(Order order) => 9;
 
-**Context**
+**Context**<br>
     ShippingCostCalculationService
         ShippingCostCalculationService(IShippingProvider shippingCost) => _shippingProvider = shippingCost;
         decimal Calculate(Order order) => _shippingProvider.CalculateCost(order);
@@ -86,15 +86,15 @@ Designmönster: Adapter
 
 ### BillingSystemExample
 
-**Adapter Interface**
+**Adapter Interface**<br>
     ISalaryProcessor
         void ProcessSalaries(string[,] employees);
 
-**Adaptee Class**
+**Adaptee Class**<br>
     ThirdPartyBillingSystem
         void ProcessSalary(List<Employee> employees)
 
-**Adapter Class**
+**Adapter Class**<br>
     HRSystem : ISalaryProcessor
         private readonly ThirdPartyBillingSystem _thirdPartyBillingSystem;
 
@@ -104,15 +104,15 @@ Adapterns jobb är att konvertera rå employee data från en 2d array av typen stri
 
 ### MovieBroadcasterExample
 
-**Adapter Interface**
+**Adapter Interface**<br>
     IBroadcaster
         void BroadcastToExternalPartners();
 
-**Adaptee Class**
+**Adaptee Class**<br>
     MovieRegistry
         XDocument GetAll()
 
-**Adapter Class**
+**Adapter Class**<br>
     Broadcast : IBroadcaster
         private readonly MovieRegistry _movieRegistry;
         private readonly ThirdPartyBroadcaster _thirdPartyBroadcaster;
