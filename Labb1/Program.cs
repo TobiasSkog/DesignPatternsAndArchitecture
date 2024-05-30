@@ -14,7 +14,7 @@ BookFactory bookFactory = new();
 FoodFactory foodFactory = new();
 DrinkFactory drinkFactory = new();
 
-//Create our payment gateway and processor with the help from our adapter so that we can use PöyPal service
+//Create our payment-gateway and -processor with the help from our adapter so that we can use PöyPal service
 PöyPalGateway pöypalGateway = new();
 IPaymentProcessor paymentProcessor = new PöyPalPaymentAdapter(pöypalGateway);
 
