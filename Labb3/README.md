@@ -1,22 +1,16 @@
 # Om uppgiften
 
-Denna labb handlar om att bygga **en väldigt enkelt applikation** från grunden som tillämpar några vanligt förekommande designmönster. Egentligen spelar applikationens funktionalitet inte så stor roll och vi kommer bara bedöma att du skapat något eget och kan bygga in några olika designmönster i applikationens struktur.
+I denna uppgift kommer du få en färdig enklare applikation som du sedan ska vidareutveckla med lite mer funktionalitet. Du ska i denna vidareutveckling fortsätta använda samma design mönster som redan används i applikationen.
 
-# Labb 1 – Implementera
+# Labb 3 – Vidareutveckla
 
 # Om uppgiften
 
-Denna labb handlar om att bygga **en väldigt enkelt applikation** från grunden som tillämpar några vanligt förekommande designmönster. Egentligen spelar applikationens funktionalitet inte så stor roll och vi kommer bara bedöma att du skapat något eget och kan bygga in några olika designmönster i applikationens struktur.
+I denna uppgift kommer du få en färdig enklare applikation som du sedan ska vidareutveckla med lite mer funktionalitet. Du ska i denna vidareutveckling fortsätta använda samma design mönster som redan används i applikationen.
 
 # Vad du ska göra
 
-- [x]  Du ska skapa en valfri console-applikation. Vad funktionaliteten är spelar ingen direkt roll men som lite förslag skulle det kunna vara typ en enkel bankomat, ett spel som typ sänka skepp eller något annat. Vill du öva på programmering så bygg något större, vill du bara få klart uppgiften fort så bygg något enkelt.
-- [x]  Du ska Implementera **minst tre** av dessa designmönster i din kod:
-    - [x] Factory Method
-    - [x] Singleton
-    - [x] Adapter
-    - [ ] Observer
-    - [ ] Strategy
-- [x]  Du ska tydlig i en kommentar i början av din kod skriva vilka designmönster du Implementerat
-- [x]  Du ska vid tillämpningen av ett designmönster skriva en kommentar i koden kring vilket designmönster det är
-
+- [x]  Kopiera koden under till ditt projekt
+- [x]  Testa först att du kan köra applikationen i befintligt skick
+- [ ]  Bygg sedan till funktioner för att tillaga/bereda kaffe, cappuccino och choklad.
+- [ ]  Du ska fortsätta använda samma design mönster som redan finns i applikationen och utöka det utan att lägga till fler design mönster eller sluta använda dem
