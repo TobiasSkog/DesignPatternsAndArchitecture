@@ -15,8 +15,8 @@ FoodFactory foodFactory = new();
 DrinkFactory drinkFactory = new();
 
 //Create our payment-gateway and -processor with the help from our adapter so that we can use PöyPal service
-PöyPalGateway pöypalGateway = new();
-IPaymentProcessor paymentProcessor = new PöyPalPaymentAdapter(pöypalGateway);
+PöyPalGateway pöyPalGateway = new();
+IPaymentProcessor paymentProcessor = new PöyPalPaymentAdapter(pöyPalGateway);
 
 Console.WriteLine("Adding your products to the shopping cart.");
 Console.WriteLine("\n\nPress any key to continue...\n\n");
