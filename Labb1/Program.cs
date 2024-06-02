@@ -23,6 +23,7 @@ Console.WriteLine("\n\nPress any key to continue...\n\n");
 Console.ReadKey();
 Console.Clear();
 
+
 // Add the product that our factories create directly to our shopping cart
 shoppingCart.AddProduct(electronicsFactory.FactoryCreation("DigiWave V5 - Ultra Slim Smart Phone", "Brand *NEW* model! Many Wow!", Brand.DigiWave, 999.99m));
 shoppingCart.AddProduct(electronicsFactory.FactoryCreation("DigiWave V5 PRO - Ultra Omega Slim Smart Phone", "Brand *NEW* Model! Sham Wow!", Brand.DigiWave, 1699.99m));

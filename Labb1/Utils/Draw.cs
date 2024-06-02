@@ -8,10 +8,6 @@ public static class Draw
     private static int MaxPropertyNameLength { get; set; } = 0;
     private static int MaxAmountOfProperties { get; set; } = 0;
 
-
-
-
-
     public static void PrintAllObjectsInfo<T>(List<T> objectList, string headerText, string splitByProperty, string informationSeparator = ": ", int lineWidth = 40)
     {
         if (objectList == null || objectList.Count == 0)
@@ -183,79 +179,3 @@ public class PropertyDetail(string name, string value)
     public string Name = name;
     public string Value = value;
 }
-
-//public static void PrintObjectInfo<T>(T obj, string headerText, string splitByProperty, string informationSeparator = ": ", int lineWidth = 40)
-//{
-//    if (obj == null)
-//    {
-//        Console.WriteLine("No object found.");
-//        return;
-//    }
-
-//    var categorizedObjects = CreateDictionaryFromObject(obj, splitByProperty);
-
-//    Console.Clear();
-//    PrintHeader(headerText, lineWidth);
-//    int productCount = 0;
-//    foreach (var category in categorizedObjects.Keys)
-//    {
-//        PrintCategoryHeader(category, splitByProperty, informationSeparator, lineWidth);
-//        foreach (var information in categorizedObjects[category])
-//        {
-//            if (productCount == MaxAmountOfProperties)
-//            {
-//                productCount = 0;
-//                PrintLine(lineWidth);
-//            }
-
-//            PrintPropertyDetail(information, lineWidth, informationSeparator);
-//            productCount++;
-//        }
-
-//        productCount = 0;
-//    }
-//    PrintLine(lineWidth);
-//}
-//private static Dictionary<string, List<PropertyDetail>> CreateDictionaryFromObject<T>(T obj, string splitByProperty)
-//{
-//    if (obj == null)
-//    {
-//        return [];
-//    }
-
-//    string category = string.Empty;
-//    Dictionary<string, List<PropertyDetail>> categorizedObjects = [];
-
-//    Type type = obj.GetType();
-//    PropertyInfo[] properties = type.GetProperties();
-//    MaxAmountOfProperties = MaxAmountOfProperties > properties.Length - 1 ? MaxAmountOfProperties : properties.Length - 1;
-
-//    List<PropertyDetail> objectInformation = [];
-//    foreach (PropertyInfo property in properties)
-//    {
-//        var propertyName = property.Name;
-//        var propertyValue = property.GetValue(obj);
-//        if (propertyName == splitByProperty)
-//        {
-//            category = propertyValue.ToString();
-//        }
-//        else
-//        {
-//            var objectInformationResult = GetObjectDetails(propertyName, propertyValue);
-//            MaxPropertyNameLength = MaxPropertyNameLength > objectInformationResult.Name.Length ? MaxPropertyNameLength : objectInformationResult.Name.Length;
-//            objectInformation.Add(objectInformationResult);
-//        }
-//    }
-//    if (!string.IsNullOrEmpty(category))
-//    {
-//        if (!categorizedObjects.TryGetValue(category, out List<PropertyDetail>? value))
-//        {
-//            value = [];
-//            categorizedObjects[category] = value;
-//        }
-//        value.AddRange(objectInformation);
-//    }
-
-//    return categorizedObjects;
-
-//}

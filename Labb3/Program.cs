@@ -1,88 +1,155 @@
-﻿namespace VarmDrinkStation
+﻿using System.Text;
+
+namespace VarmDrinkStation;
+
+public interface IWarmDrink
 {
-    public interface IWarmDrink
+    void Consume();
+}
+internal class Water : IWarmDrink
+{
+    public void Consume()
     {
-        void Consume();
+        Console.WriteLine("Warm water is served.");
     }
-    internal class Water : IWarmDrink
+}
+internal class Coffee : IWarmDrink
+{
+    public void Consume()
     {
-        public void Consume()
-        {
-            Console.WriteLine("Warm water is served.");
-        }
+        Console.WriteLine("Warm coffee is served.");
     }
-    public interface IWarmDrinkFactory
+}
+internal class Cappuccino : IWarmDrink
+{
+    public void Consume()
     {
-        IWarmDrink Prepare(int total);
+        Console.WriteLine("Warm cappuccino is served.");
     }
-    internal class HotWaterFactory : IWarmDrinkFactory
+}
+internal class Chocolate : IWarmDrink
+{
+    public void Consume()
     {
-        public IWarmDrink Prepare(int total)
-        {
-            Console.WriteLine($"Pour {total} ml hot water in your cup");
-            return new Water();
-        }
+        Console.WriteLine("Warm chocolate is served.");
     }
-    public class WarmDrinkMachine
+}
+public interface IWarmDrinkFactory
+{
+    IWarmDrink Prepare(int total);
+}
+internal class HotWaterFactory : IWarmDrinkFactory
+{
+    public IWarmDrink Prepare(int total)
     {
-        public enum AvailableDrink // violates open-closed
-        {
-            Coffee, Tea
-        }
-        private Dictionary<AvailableDrink, IWarmDrinkFactory> factories =
-          new Dictionary<AvailableDrink, IWarmDrinkFactory>();
+        Console.WriteLine($"Pour {total} ml hot water in your cup");
+        return new Water();
+    }
+}
+internal class HotCoffeeFactory : IWarmDrinkFactory
+{
+    public IWarmDrink Prepare(int total)
+    {
+        Console.WriteLine($"Pour {total} ml hot coffee in your cup");
+        return new Coffee();
+    }
+}
+internal class HotCappuccinoFactory : IWarmDrinkFactory
+{
+    public IWarmDrink Prepare(int total)
+    {
+        Console.WriteLine($"Pour {total} ml hot cappuccino in your cup");
+        return new Cappuccino();
+    }
+}
+internal class HotChocolateFactory : IWarmDrinkFactory
+{
+    public IWarmDrink Prepare(int total)
+    {
+        Console.WriteLine($"Pour {total} ml hot chocolate in your cup");
+        return new Chocolate();
+    }
+}
+public class WarmDrinkMachine
+{
+    private readonly List<Tuple<string, IWarmDrinkFactory>> namedFactories = [];
 
-        private List<Tuple<string, IWarmDrinkFactory>> namedFactories =
-          new List<Tuple<string, IWarmDrinkFactory>>();
-
-        public WarmDrinkMachine()
+    public WarmDrinkMachine()
+    {
+        foreach (var t in typeof(WarmDrinkMachine).Assembly.GetTypes())
         {
-            foreach (var t in typeof(WarmDrinkMachine).Assembly.GetTypes())
+            if (typeof(IWarmDrinkFactory).IsAssignableFrom(t) && !t.IsInterface)
             {
-                if (typeof(IWarmDrinkFactory).IsAssignableFrom(t) && !t.IsInterface)
+                namedFactories.Add(Tuple.Create(
+                  t.Name.Replace("Factory", string.Empty),
+                  (IWarmDrinkFactory)Activator.CreateInstance(t)!));
+            }
+        }
+    }
+    public IWarmDrink MakeDrink()
+    {
+        PrintMenu();
+        return GetUserChoiceOfDrink();
+    }
+    private IWarmDrink GetUserChoiceOfDrink()
+    {
+        while (true)
+        {
+            Console.Write("Select a number to continue: ");
+            string s;
+            if ((s = Console.ReadLine()!) != null
+                && int.TryParse(s, out int i) // c# 7
+                && i >= 0
+                && i < namedFactories.Count)
+            {
+                Console.Write("How much: ");
+                s = Console.ReadLine()!;
+                if (s != null
+                    && int.TryParse(s, out int total)
+                    && total > 0)
                 {
-                    namedFactories.Add(Tuple.Create(
-                      t.Name.Replace("Factory", string.Empty), (IWarmDrinkFactory)Activator.CreateInstance(t)));
+                    return namedFactories[i].Item2.Prepare(total);
                 }
             }
-        }
-        public IWarmDrink MakeDrink()
-        {
-            Console.WriteLine("This is what we serve today:");
-            for (var index = 0; index < namedFactories.Count; index++)
-            {
-                var tuple = namedFactories[index];
-                Console.WriteLine($"{index}: {tuple.Item1}");
-            }
-            Console.WriteLine("Select a number to continue:");
-            while (true)
-            {
-                string s;
-                if ((s = Console.ReadLine()) != null
-                    && int.TryParse(s, out int i) // c# 7
-                    && i >= 0
-                    && i < namedFactories.Count)
-                {
-                    Console.Write("How much: ");
-                    s = Console.ReadLine();
-                    if (s != null
-                        && int.TryParse(s, out int total)
-                        && total > 0)
-                    {
-                        return namedFactories[i].Item2.Prepare(total);
-                    }
-                }
-                Console.WriteLine("Something went wrong with your input, try again.");
-            }
+            Console.WriteLine("Something went wrong with your input.");
+            Console.WriteLine("Press any key to try again...");
+            Console.ReadKey();
+            Console.Clear();
         }
     }
-    class Program
+
+    private void PrintMenu()
     {
-        static void Main(string[] args)
+        Console.WriteLine("This is what we serve today:");
+        for (var index = 0; index < namedFactories.Count; index++)
         {
-            var machine = new WarmDrinkMachine();
-            IWarmDrink drink = machine.MakeDrink();
-            drink.Consume();
+            var tuple = namedFactories[index];
+
+            // Quick fix to split the words up to multiple
+            // words when using pascal casing to make the
+            // print look a bit better and be easier to read
+            var charArray = tuple.Item1.ToCharArray();
+            StringBuilder sb = new();
+            for (int i = 0; i < charArray.Length; i++)
+            {
+                if (char.IsUpper(charArray[i]) && i != 0)
+                {
+                    sb.Append(' ');
+                }
+
+                sb.Append(charArray[i]);
+            }
+            string formattedName = sb.ToString();
+            Console.WriteLine($"{index}: {formattedName}");
         }
+    }
+}
+class Program
+{
+    static void Main(string[] args)
+    {
+        var machine = new WarmDrinkMachine();
+        IWarmDrink drink = machine.MakeDrink();
+        drink.Consume();
     }
 }
